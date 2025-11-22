@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Stream Dashboard</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            background: #f8f8f8; 
+            padding: 20px; 
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #aaa;
+        }
+        h2 { color: #333; }
+        p { font-size: 18px; }
+    </style>
+</head>
+<body>
+
+<h1>Live Data Stream Dashboard</h1>
+
+<div class="box">
+    <h2>Sensor Data</h2>
+    <p><b>Temperature:</b> <span id="temp"></span> °C</p>
+    <p><b>Humidity:</b> <span id="humidity"></span> %</p>
+    <p><b>Pressure:</b> <span id="pressure"></span> hPa</p>
+    <p><b>Timestamp:</b> <span id="time"></span></p>
+</div>
+
+<script>
+    function fetchData() {
+        fetch("/data")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("temp").innerText = data.temperature;
+            document.getElementById("humidity").innerText = data.humidity;
+            document.getElementById("pressure").innerText = data.pressure;
+            document.getElementById("time").innerText = data.timestamp;
+        });
+    }
+
+    setInterval(fetchData, 1000); // fetch every 1 sec
+</script>
+
+</body>
+</html>
